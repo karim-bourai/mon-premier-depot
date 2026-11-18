@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const { body } = require('express-validator');
+const ctrl = require('../controllers/rolesController');
+const { verifierToken, administrateur } = require('../middlewares/auth');
+const verifier = require('../middlewares/validation');
+router.use(verifierToken, administrateur);
+router.get('/', ctrl.getTous);
+router.get('/:id', ctrl.getUn);
+router.post('/', body('nom_role').trim().notEmpty().isLength({max:50}), verifier, ctrl.ajouter);
+router.put('/:id', body('nom_role').trim().notEmpty().isLength({max:50}), verifier, ctrl.modifier);
+router.delete('/:id', ctrl.supprimer);
+module.exports = router;

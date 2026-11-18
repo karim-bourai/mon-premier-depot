@@ -1,11 +1,12 @@
 const express = require('express');
 
 const app = express();
+app.use(express.static('public'));
 
 const PORT = 3000;
 
 app.get('/', (req, res) => {
-    res.send('Bienvenue dans notre projet de conception web !');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.listen(PORT, () => {
